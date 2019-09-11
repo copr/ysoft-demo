@@ -2,11 +2,12 @@ package org.koberskym.ysoftdemo.ciphers;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /** */
 public class Morse {
 
-  private Map dictionary = new HashMap();
+  private Map<String, String> dictionary = new HashMap<String, String>();
 
   public Morse() {
     initDictionary();
@@ -17,12 +18,26 @@ public class Morse {
    * @return
    */
   public String encrypt(String toEncrypt) {
-
-    return toEncrypt;
+    return toEncrypt.codePoints()
+        .mapToObj(c -> String.valueOf((char) c))
+        .map(s -> s.toUpperCase())
+        .map(s -> encryptCharacter(s))
+        .collect(Collectors.joining(" "));
   }
 
   public String decrypt(String toDecrypt) {
     return toDecrypt;
+  }
+
+  private String encryptCharacter(String s) {
+    assert(s.length() == 1);
+
+    String encrypted = dictionary.get(s);
+    if (encrypted == null) {
+      throw new IllegalArgumentException("No encryption for: " + s);
+    }
+    return encrypted;
+
   }
 
   private void initDictionary() {
@@ -66,5 +81,6 @@ public class Morse {
     dictionary.put(",", "--..--");
     dictionary.put("?", "..--..");
     dictionary.put("=", "-...-");
+    dictionary.put(" ", "/");
   }
 }
