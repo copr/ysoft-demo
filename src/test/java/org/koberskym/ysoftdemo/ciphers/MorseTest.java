@@ -16,8 +16,8 @@ class MorseTest {
   @CsvSource({
       "a, .-",
       "e, .",
-      "Morse Code", "-- --- .-. ... . / -.-. --- -.. .",
-      "I'm so smart", ".. .----. -- / ... --- / ... -- .- .-. -"
+      "Morse Code, -- --- .-. ... . / -.-. --- -.. .",
+      "I am so smart, .. / .- -- / ... --- / ... -- .- .-. -"
   })
   void encrypt_correctResults(String in, String expected) {
     assertEquals(expected, morse.encrypt(in));
