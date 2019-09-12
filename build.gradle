@@ -13,13 +13,17 @@ repositories {
 }
 
 dependencies {
+	// initiliazr
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
+	// custom
+	implementation 'com.google.guava:guava:28.0-jre'
 	testImplementation 'org.junit.jupiter:junit-jupiter:5.5.1'
 }
 
 test {
 	useJUnitPlatform()
 }
+
