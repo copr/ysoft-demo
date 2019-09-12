@@ -3,6 +3,7 @@ package org.koberskym.ysoftdemo.ciphers;
 import org.jboss.logging.Param;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvFileSource;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
@@ -13,12 +14,7 @@ class MorseTest {
   private Morse morse = new Morse();
 
   @ParameterizedTest
-  @CsvSource({
-      "a, .-",
-      "e, .",
-      "Morse Code, -- --- .-. ... . / -.-. --- -.. .",
-      "I am so smart, .. / .- -- / ... --- / ... -- .- .-. -"
-  })
+  @CsvFileSource(resources = {"/basic_morse.csv", "/complex_morse.csv"})
   void encrypt_correctResults(String in, String expected) {
     assertEquals(expected, morse.encrypt(in));
   }
@@ -29,10 +25,16 @@ class MorseTest {
     assertThrows(IllegalArgumentException.class, () -> morse.encrypt(in));
   }
 
-  @ParameterizedTest
-  @ValueSource(strings = {"a"})
-  void encrypt_sameResults_differentCases(String in) {}
 
-  @Test
-  void decrypt() {}
+  @ParameterizedTest
+  @CsvFileSource(resources = {"/basic_morse.csv", "/complex_morse.csv"})
+  void decrypt(String expected, String in) {
+    assertEquals(expected.toUpperCase(), morse.decrypt(in));
+  }
+
+  @ParameterizedTest
+  @ValueSource(strings = {"........", "asdbcsd", "a", "b", "!!!", "???"})
+  void descrypt_exceptionThrown_invalidCharacters(String in) {
+    assertThrows(IllegalArgumentException.class, () -> morse.decrypt(in));
+  }
 }

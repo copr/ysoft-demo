@@ -1,13 +1,15 @@
 package org.koberskym.ysoftdemo.ciphers;
 
-import java.util.HashMap;
-import java.util.Map;
+import com.google.common.collect.BiMap;
+import com.google.common.collect.HashBiMap;
+
+import java.util.Arrays;
 import java.util.stream.Collectors;
 
 /** */
 public class Morse {
 
-  private Map<String, String> dictionary = new HashMap<String, String>();
+  private BiMap<String, String> dictionary = HashBiMap.create();
 
   public Morse() {
     initDictionary();
@@ -26,7 +28,19 @@ public class Morse {
   }
 
   public String decrypt(String toDecrypt) {
-    return toDecrypt;
+    return Arrays.stream(toDecrypt.split(" "))
+        .filter(s -> !s.equals(" "))
+        .map(s -> decryptCharacter(s))
+        .collect((Collectors.joining()));
+
+  }
+
+  private String decryptCharacter(String s) {
+    String decrypted = dictionary.inverse().get(s);
+    if (decrypted == null) {
+      throw new IllegalArgumentException("No descryption for: " + s);
+    }
+    return decrypted;
   }
 
   private String encryptCharacter(String s) {
