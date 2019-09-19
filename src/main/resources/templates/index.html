@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Getting Started: Serving Web Content</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+    <form action="#" th:action="@{/}" th:object="${cipherForm}" method="post">
+        <div>
+            <ul>
+                <li th:each="cipher: ${cipherForm.ciphers}">
+                    <input type="radio" th:field="*{cipherId}" th:value="${cipher.id}" />
+                    <label th:for="${cipher.id}" th:text="${cipher.name}"></label>
+                </li>
+            </ul>
+        </div>
+        <div>
+            <textarea th:field="*{text}" value="${cipherForm.text}"/>
+        </div>
+        <div>
+            <input type="submit"  name="action" value="Encrypt" />
+            <input type="submit"  name="action" value="Decrypt" />
+        </div>
+        <div>
+            <p th:text="${cipherForm.errorMessage}" th:style="'color: red;'"></p>
+        </div>
+    </form>
+</body>
+</html>

@@ -20,6 +20,7 @@ dependencies {
 
 	// custom
 	implementation 'com.google.guava:guava:28.0-jre'
+	implementation 'org.springframework.boot:spring-boot-devtools:2.1.8.RELEASE'
 	testImplementation 'org.junit.jupiter:junit-jupiter:5.5.1'
 }
 

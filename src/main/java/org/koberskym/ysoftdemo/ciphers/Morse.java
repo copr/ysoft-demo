@@ -6,8 +6,12 @@ import com.google.common.collect.HashBiMap;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
-/** */
-public class Morse {
+/**
+ *
+ *
+ *
+ */
+public class Morse implements Cipher {
 
   private BiMap<String, String> dictionary = HashBiMap.create();
 
@@ -16,8 +20,11 @@ public class Morse {
   }
 
   /**
-   * @param toEncrypt
-   * @return
+   * Encrypts given string to morse code.
+   * @param toEncrypt - string to be encrypted. Allowed characters are a-Z, 0-9, also ".',
+   *                  ",", "?", "=" and space.
+   * @Throws IllegalArgumentException when there is a character that can not be encoded.
+   * @return given string as morse code.
    */
   public String encrypt(String toEncrypt) {
     return toEncrypt.codePoints()
@@ -27,6 +34,15 @@ public class Morse {
         .collect(Collectors.joining(" "));
   }
 
+  /**
+   * Decrypts given string. Resulting string is in uppercase as there's no way to know
+   * what was the case of original string.
+   * @param toDecrypt string to be decrypted can only contain dots and dashes for each
+   *                  character. Individual characters are to be separated by spaces
+   *                  and individual words are to be separated by "/".
+   * @Throws IllegalArgumentException when there is a character that can not be decoded.
+   * @return uppercase decryption from given morse code.
+   */
   public String decrypt(String toDecrypt) {
     return Arrays.stream(toDecrypt.split(" "))
         .filter(s -> !s.equals(" "))
