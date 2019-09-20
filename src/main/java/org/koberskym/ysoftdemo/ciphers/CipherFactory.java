@@ -9,8 +9,7 @@ public class CipherFactory {
   private static Map<String, Cipher> cipherMap = new HashMap<>();
 
   static {
-    Cipher morse = new Morse();
-    cipherMap.put(morse.getName(), morse);
+    addCipher(new Morse());
   }
 
   private CipherFactory() {}
@@ -21,5 +20,12 @@ public class CipherFactory {
 
   public static Cipher getCipherById(String id) {
     return cipherMap.get(id);
+  }
+
+  public static void addCipher(Cipher cipher) {
+    if (cipher == null) {
+      throw new IllegalArgumentException("Cipher object must not be null");
+    }
+    cipherMap.put(cipher.getName(), cipher);
   }
 }
