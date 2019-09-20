@@ -11,6 +11,9 @@ import java.util.stream.Collectors;
  */
 public class Morse implements Cipher {
 
+  /**
+   * dictionary that is used to translate string to/from morse code
+   */
   private BiMap<String, String> dictionary = HashBiMap.create();
 
   public Morse() {
