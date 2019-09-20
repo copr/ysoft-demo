@@ -7,9 +7,7 @@ import java.util.Arrays;
 import java.util.stream.Collectors;
 
 /**
- *
- *
- *
+ * Implementation of encryption and decryption algorithms from/to morse code.
  */
 public class Morse implements Cipher {
 
@@ -31,6 +29,7 @@ public class Morse implements Cipher {
    * @Throws IllegalArgumentException when there is a character that can not be encoded.
    * @return given string as morse code.
    */
+  @Override
   public String encrypt(String toEncrypt) {
     return toEncrypt.codePoints()
         .mapToObj(c -> String.valueOf((char) c))
@@ -48,6 +47,7 @@ public class Morse implements Cipher {
    * @Throws IllegalArgumentException when there is a character that can not be decoded.
    * @return uppercase decryption from given morse code.
    */
+  @Override
   public String decrypt(String toDecrypt) {
     return Arrays.stream(toDecrypt.split(" "))
         .filter(s -> !s.equals(" "))
@@ -56,6 +56,12 @@ public class Morse implements Cipher {
 
   }
 
+  /**
+   * Decrypts one sequence of dots and dashes to uppercase letter or a symbol. E.g ".-" is decrypted to "E".
+   * @param s string representing one sequence of dots and dashes.
+   * @throws IllegalArgumentException if the string does not represent one morse alphabet character.
+   * @return uppercase letter or symbol
+   */
   private String decryptCharacter(String s) {
     String decrypted = dictionary.inverse().get(s);
     if (decrypted == null) {
@@ -64,6 +70,12 @@ public class Morse implements Cipher {
     return decrypted;
   }
 
+  /**
+   * Encrypts one character to morse code.
+   * @param s  must be of lenght one and represents character to be encrypted.
+   * @throws IllegalArgumentException when character can not be encrypted.
+   * @return character encrypted in morse code
+   */
   private String encryptCharacter(String s) {
     assert(s.length() == 1);
 
@@ -75,6 +87,9 @@ public class Morse implements Cipher {
 
   }
 
+  /**
+   * Initializes morse code dictionary.
+   */
   private void initDictionary() {
     dictionary.put("A", ".-");
     dictionary.put("B", "-...");
