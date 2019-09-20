@@ -25,11 +25,17 @@ public class Index {
                         @RequestParam String action,
                         Model model) {
 
-    Cipher cipher = CipherFactory.getCipherById(cipherForm.getCipherName());
 
     if (errors.hasErrors()) {
-      initModel(model, "", "Cipher not set or not found");
+      initModel(model, "", "Cipher not set");
       return "index";
+    }
+
+    Cipher cipher = CipherFactory.getCipherById(cipherForm.getCipherName());
+
+    if (cipher == null) {
+      // log(cipher couldn't be found)
+      throw new IllegalStateException("Cipher " + cipherForm.getCipherName() + " couldn't be found");
     }
 
     String newText;
