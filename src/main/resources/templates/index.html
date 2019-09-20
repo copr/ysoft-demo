@@ -9,8 +9,8 @@
         <div>
             <ul>
                 <li th:each="cipher: ${cipherForm.ciphers}">
-                    <input type="radio" th:field="*{cipherId}" th:value="${cipher.id}" />
-                    <label th:for="${cipher.id}" th:text="${cipher.name}"></label>
+                    <input type="radio" th:field="*{cipherName}" th:value="${cipher.name}" />
+                    <label th:for="${cipher.name}" th:text="${cipher.name}"></label>
                 </li>
             </ul>
         </div>
@@ -18,8 +18,8 @@
             <textarea th:field="*{text}" value="${cipherForm.text}"/>
         </div>
         <div>
-            <input type="submit"  name="action" value="Encrypt" />
-            <input type="submit"  name="action" value="Decrypt" />
+            <input type="submit"  name="action" value="encrypt" />
+            <input type="submit"  name="action" value="decrypt" />
         </div>
         <div>
             <p th:text="${cipherForm.errorMessage}" th:style="'color: red;'"></p>

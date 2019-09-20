@@ -6,21 +6,20 @@ import java.util.List;
 import java.util.Map;
 
 public class CipherFactory {
-  private static Map<String, CipherWrapper> cipherMap = new HashMap<>();
+  private static Map<String, Cipher> cipherMap = new HashMap<>();
 
   static {
-    CipherWrapper morse = new CipherWrapper("morse", "Morse", new Morse());
-    cipherMap.put(morse.getId(), morse);
-
-    CipherWrapper kaisar = new CipherWrapper("kaisar", "Kaisar", null);
-    cipherMap.put(kaisar.getId(), kaisar);
+    Cipher morse = new Morse();
+    cipherMap.put(morse.getName(), morse);
   }
 
-  public static List<CipherWrapper> getCiphers() {
-    return new ArrayList<CipherWrapper>(cipherMap.values());
+  private CipherFactory() {}
+
+  public static List<Cipher> getCiphers() {
+    return new ArrayList<>(cipherMap.values());
   }
 
-  public static CipherWrapper getCipherById(String id) {
+  public static Cipher getCipherById(String id) {
     return cipherMap.get(id);
   }
 }

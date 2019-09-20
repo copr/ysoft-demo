@@ -1,6 +1,6 @@
-package org.koberskym.ysoftdemo.controllers;
+package org.koberskym.ysoftdemo.forms;
 
-import org.koberskym.ysoftdemo.ciphers.CipherWrapper;
+import org.koberskym.ysoftdemo.ciphers.Cipher;
 
 import javax.validation.constraints.NotNull;
 import java.util.List;
@@ -8,26 +8,26 @@ import java.util.List;
 public class CipherForm {
 
   @NotNull
-  private String cipherId;
+  private String cipherName;
   private String text;
   private String errorMessage;
-  private List<CipherWrapper> ciphers;
+  private List<Cipher> ciphers;
 
   public CipherForm() {}
 
-  public CipherForm(String cipherId, String text, String errorMessage, List<CipherWrapper> ciphers) {
-    this.cipherId = cipherId;
+  public CipherForm(String cipherName, String text, String errorMessage, List<Cipher> ciphers) {
+    this.cipherName = cipherName;
     this.text = text;
     this.errorMessage = errorMessage;
     this.ciphers = ciphers;
   }
 
-  public String getCipherId() {
-    return cipherId;
+  public String getCipherName() {
+    return cipherName;
   }
 
-  public void setCipherId(String cipherId) {
-    this.cipherId = cipherId;
+  public void setCipherName(String cipherName) {
+    this.cipherName = cipherName;
   }
 
   public String getText() {
@@ -46,11 +46,11 @@ public class CipherForm {
     this.errorMessage = errorMessage;
   }
 
-  public List<CipherWrapper> getCiphers() {
+  public List<Cipher> getCiphers() {
     return ciphers;
   }
 
-  public void setCiphers(List<CipherWrapper> ciphers) {
+  public void setCiphers(List<Cipher> ciphers) {
     this.ciphers = ciphers;
   }
 }

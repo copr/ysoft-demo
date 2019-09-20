@@ -19,6 +19,11 @@ public class Morse implements Cipher {
     initDictionary();
   }
 
+  @Override
+  public String getName() {
+    return "Morse";
+  }
+
   /**
    * Encrypts given string to morse code.
    * @param toEncrypt - string to be encrypted. Allowed characters are a-Z, 0-9, also ".',
@@ -29,8 +34,8 @@ public class Morse implements Cipher {
   public String encrypt(String toEncrypt) {
     return toEncrypt.codePoints()
         .mapToObj(c -> String.valueOf((char) c))
-        .map(s -> s.toUpperCase())
-        .map(s -> encryptCharacter(s))
+        .map(String::toUpperCase)
+        .map(this::encryptCharacter)
         .collect(Collectors.joining(" "));
   }
 
@@ -46,7 +51,7 @@ public class Morse implements Cipher {
   public String decrypt(String toDecrypt) {
     return Arrays.stream(toDecrypt.split(" "))
         .filter(s -> !s.equals(" "))
-        .map(s -> decryptCharacter(s))
+        .map(this::decryptCharacter)
         .collect((Collectors.joining()));
 
   }
@@ -54,7 +59,7 @@ public class Morse implements Cipher {
   private String decryptCharacter(String s) {
     String decrypted = dictionary.inverse().get(s);
     if (decrypted == null) {
-      throw new IllegalArgumentException("No descryption for: " + s);
+      throw new IllegalArgumentException("No decryption for: " + s);
     }
     return decrypted;
   }

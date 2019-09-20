@@ -2,13 +2,14 @@ package org.koberskym.ysoftdemo.controllers;
 
 import org.koberskym.ysoftdemo.ciphers.Cipher;
 import org.koberskym.ysoftdemo.ciphers.CipherFactory;
-import org.koberskym.ysoftdemo.ciphers.CipherWrapper;
+import org.koberskym.ysoftdemo.forms.CipherForm;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Objects;
 
 @Controller
 public class Index {
@@ -24,23 +25,20 @@ public class Index {
                         @RequestParam String action,
                         Model model) {
 
+    Cipher cipher = CipherFactory.getCipherById(cipherForm.getCipherName());
+
     if (errors.hasErrors()) {
-      initModel(model, "", "Cipher not set");
+      initModel(model, "", "Cipher not set or not found");
       return "index";
     }
-
-    CipherWrapper cipherWrapper = CipherFactory.getCipherById(cipherForm.getCipherId());
-
-    if (cipherWrapper == null) {
-      initModel(model, "", "");
-      return "index";
-    }
-
-    Cipher cipher = cipherWrapper.getCipher();
 
     String newText;
     try {
-      newText = cipher.encrypt(cipherForm.getText());
+      if (Objects.equals(action, "encrypt")) {
+        newText = cipher.encrypt(cipherForm.getText());
+      } else {
+        newText = cipher.decrypt(cipherForm.getText());
+      }
     } catch(IllegalArgumentException e) {
       newText = e.getMessage();
     }
