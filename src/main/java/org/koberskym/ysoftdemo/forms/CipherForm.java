@@ -5,12 +5,31 @@ import org.koberskym.ysoftdemo.ciphers.Cipher;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
+/**
+ * CipherForm is a backing bean for the frontend application. It contains everything
+ * that is shown in the form that allows the user to encrypt or decrypt provided text.
+ */
 public class CipherForm {
 
+  /**
+   * cipherName specifiec which cipher to use for encryption/decryption
+   */
   @NotNull
   private String cipherName;
+
+  /**
+   * text to be encrypted/decrypted
+   */
   private String text;
+
+  /**
+   * possible error messages to be shown
+   */
   private String errorMessage;
+
+  /**
+   * list of ciphers that user can use
+   */
   private List<Cipher> ciphers;
 
   public CipherForm() {}
