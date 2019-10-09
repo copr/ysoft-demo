@@ -1,0 +1,6 @@
+Write a web application (in Java) which meets the following requirements:
+
+    Allow users to enter a string which will be encrypted or decrypted by a selected algorithm
+    Implement encryption to Morse code and decryption from Morse code
+    Your design and solution should allow an easy extension of the application by adding another encryption and decryption algorithms (a Caesar cipher for example)
+    Show your programming skills as well as your problem-solving skills. A clean and readable design and code and adhering to the KISS principle is much more important than applying artificially all the design patterns you know.
